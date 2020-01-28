@@ -11,6 +11,71 @@ RUTA ="/home/javier/PycharmProjects/Biblioteca/"
 ##-----Crea los libros en su carpeta
 ##---Si un autor y un libro ya existe, el sistema notifica que ese libro ya existe
 ##---Cuando no existe el autor ni el libro, se crean la carpeta del autor y dentro de ella el libro
+
+#--------------------------------------------------------Incio Menús
+def menuPrincipal():
+    while True:
+        print("1. Gestionar Libros")
+        print("2. Gestionar Autores")
+        print("3. Salir")
+        entrada = input("Ingrese la opción: ")
+
+        if entrada == "1":
+            menuLibros()
+        elif entrada == "2":
+            menuAutores()
+        elif entrada == "3":
+            exit()
+        else:
+            print("La entrada es incorrecta.")
+
+
+def menuLibros():
+    while True:
+        print("1. Leer")
+        print("2. Adicionar Texto")
+        print("3. Adicionar Libro")
+        print("4. Eliminar Libro")
+        print("5. Regresar atrás")
+        print("6. Salir")
+        entrada = input("Ingrese la opción: ")
+        if entrada == "1":
+            pass
+        elif entrada == "2":
+            pass
+        elif entrada == "3":
+            pass
+        elif entrada == "4":
+            pass
+        elif entrada == "5":
+            menuPrincipal()
+        elif entrada == "6":
+            exit()
+        else:
+            print("La entrada es incorrecta.")
+
+def menuAutores():
+    while True:
+        print("1. Editar")
+        print("2. Eliminar")
+        print("3. Regresar atrás")
+        print("4. Salir")
+        entrada = input("Ingrese la opción: ")
+        if entrada == "1":
+            pass
+        elif entrada == "2":
+            pass
+        elif entrada == "3":
+            menuPrincipal()
+        elif entrada == "4":
+            exit()
+        else:
+            print("La entrada es incorrecta.")
+
+#------------------------------------------------------------------Fin Menús
+
+
+#------------------------------------------------------------------Inicio Métodos del Profesor
 def add_libros(titulo, autor):
     carpeta_autor=RUTA+autor+"/"
     if(os.path.isdir(carpeta_autor)):## la funcio os.path.isdir confirma si es directorio o no
@@ -36,13 +101,6 @@ def agregar_texto():
         salida=salida+dato+"\n"
     return salida
 
-
-add_libros("Programacion en Python1","pepe")
-
-
-
-
-
 def addMetadatos(titulo, autor):
     texto=" Autor :"+autor+"\n"
     texto=texto+"Tutulo libro:" + titulo+"\n"
@@ -50,3 +108,10 @@ def addMetadatos(titulo, autor):
     texto = texto + "Año: 2019 \n"
     texto = texto + "_________________________________________________________________________________________\n"
     return texto
+#---------------------------------------------------------------------Fin Métodos del Profesor
+
+
+#--------incio main
+menuPrincipal()
+#add_libros("Programacion en Python1","pepe")
+#--------fin main
