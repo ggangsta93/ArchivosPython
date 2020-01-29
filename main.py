@@ -1,5 +1,6 @@
 ##Sistema de gestion de archivos de biblioteca
 import os
+
 ###Complementar el trabajo así
 ###HAcer gestion de autores y libros
 ###la gestion debe permitir, 1 agregar texto a los libros
@@ -34,22 +35,25 @@ def menuLibros():
     while True:
         print("1. Leer")
         print("2. Adicionar Texto")
-        print("3. Adicionar Libro")
-        print("4. Eliminar Libro")
-        print("5. Regresar atrás")
-        print("6. Salir")
+        print("3. Listar libros por Autor")
+        print("4. Adicionar Libro")
+        print("5. Eliminar Libro")
+        print("6. Regresar atrás")
+        print("7. Salir")
         entrada = input("Ingrese la opción: ")
         if entrada == "1":
-            pass
+            leer()
         elif entrada == "2":
             pass
         elif entrada == "3":
-            pass
+            listarLibrosPorAutor()
         elif entrada == "4":
-            pass
+            add_libros()
         elif entrada == "5":
-            menuPrincipal()
+            pass
         elif entrada == "6":
+            menuPrincipal()
+        elif entrada == "7":
             exit()
         else:
             print("La entrada es incorrecta.")
@@ -75,12 +79,33 @@ def menuAutores():
 #------------------------------------------------------------------Fin Menús
 
 
-#------------------------------------------------------------------Inicio Métodos del Profesor
-def add_libros(titulo, autor):
-    carpeta_autor=RUTA+autor+"/"
-    if(os.path.isdir(carpeta_autor)):## la funcio os.path.isdir confirma si es directorio o no
+
+def agregar_texto():
+    texto="fin"
+    dato=""
+    salida=""
+    i=0
+    while texto!=dato:
+        dato=input("Para salir fin, Digite el texto del libro: ")
+        if not "fin" == dato:
+            salida=salida+dato+"\n"
+    return salida
+
+def addMetadatos(titulo, autor):
+    texto =" Autor: "+autor+"\n"
+    texto = texto + " Titulo libro: " + titulo+"\n"
+    texto = texto + " País: Desconocido \n"
+    texto = texto + " Año: Desconocido \n"
+    texto = texto + "_________________________________________________________________________________________\n"
+    return texto
+
+def add_libros():
+    titulo = input("Ingrese el titulo: ")
+    autor = input("Ingrese el autor: ")
+    carpeta_autor = RUTA + autor+"/"
+    if(os.path.isdir(carpeta_autor)):# la funcio os.path.isdir confirma si es directorio o no
         if(os.path.isfile(carpeta_autor+titulo+".txt")):#---la funcion os.path.isfile confirma si es un archivo o no
-             print("El libro ya existe")
+             print("El libro ya existe!")
         else:
             libro_nuevo = open(carpeta_autor + titulo + ".txt", "a+")
             libro_nuevo.write(agregar_texto())
@@ -91,27 +116,27 @@ def add_libros(titulo, autor):
         libro_nuevo.write(addMetadatos(titulo, autor)+agregar_texto())
         libro_nuevo.close()
 
-def agregar_texto():
-    texto="fin"
-    dato=""
-    salida=""
-    i=0
-    while texto!=dato:
-        dato=input("Para salir fin, Digite el texto del libro")
-        salida=salida+dato+"\n"
-    return salida
 
-def addMetadatos(titulo, autor):
-    texto=" Autor :"+autor+"\n"
-    texto=texto+"Tutulo libro:" + titulo+"\n"
-    texto = texto + "País: Colombia \n"
-    texto = texto + "Año: 2019 \n"
-    texto = texto + "_________________________________________________________________________________________\n"
-    return texto
-#---------------------------------------------------------------------Fin Métodos del Profesor
 
+def listarLibrosPorAutor():
+    Autores = list(filter(os.path.isdir, os.listdir(RUTA)))
+    Autores.sort()
+    for i in Autores:
+        if(os.path.isdir(RUTA+i+"/")):# Confirma si está la carpeta
+            print("ruta: "+RUTA+i+"/"+"Autor: "+i)#Imprime Autor
+            for j in os.listdir(RUTA+i):
+                print("    "+j)#Imprime sus libros
+
+def leer():
+    titulo = input("Ingrese el titulo: ")
+    autor = input("Ingrese el autor: ")
+    if (os.path.isdir(RUTA + autor+"/")):
+        if(os.path.isfile(RUTA + autor+"/"+titulo+".txt")):#---la funcion os.path.isfile confirma si es un archivo o no
+            libro_nuevo = open(RUTA+autor+"/"+titulo+".txt", "r")
+            print("Es es la direccion: "+RUTA+autor+"/"+titulo+".txt")
+            libro_nuevo.read()
+            libro_nuevo.close()
 
 #--------incio main
 menuPrincipal()
-#add_libros("Programacion en Python1","pepe")
 #--------fin main
